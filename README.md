@@ -86,11 +86,11 @@ After cloning the repository inside the guest, run:
 ```
 
 The source archives are downloaded into the current directory and extracted
-under `/usr/src`. The script runs the four independent source-set jobs in
-parallel. It is safe to rerun: existing archives are reused, already-extracted
-sets are skipped, and archives are never deleted automatically. The downloaded
-`.tgz` files are ignored by Git; remove them manually when you no longer need
-them.
+under `./usr/src`, inside the cloned lab directory. The script runs the four
+independent source-set jobs in parallel. It is safe to rerun: existing
+archives are reused, already-extracted sets are skipped, and archives are
+never deleted automatically. The downloaded `.tgz` files and extracted source
+tree are ignored by Git; remove them manually when you no longer need them.
 
 ## Suggested exercise sequence
 

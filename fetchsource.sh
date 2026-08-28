@@ -9,7 +9,7 @@ fetch_and_extract() {
     marker="$2"
     archive="${set_name}.tgz"
 
-    if [ -e "/${marker}" ]; then
+    if [ -e "$marker" ]; then
         echo "${set_name}: already extracted; skipping"
         return 0
     fi
@@ -22,17 +22,17 @@ fetch_and_extract() {
     fi
 
     echo "${set_name}: extracting"
-    sudo tar zxf "$archive" -C /
+    tar zxf "$archive" -C .
     echo "${set_name}: complete"
 }
 
-fetch_and_extract gnusrc usr/src/gnu &
+fetch_and_extract gnusrc ./usr/src/gnu &
 gnusrc_pid=$!
-fetch_and_extract sharesrc usr/src/share &
+fetch_and_extract sharesrc ./usr/src/share &
 sharesrc_pid=$!
-fetch_and_extract src usr/src/bin &
+fetch_and_extract src ./usr/src/bin &
 src_pid=$!
-fetch_and_extract syssrc usr/src/sys &
+fetch_and_extract syssrc ./usr/src/sys &
 syssrc_pid=$!
 
 failed=0
