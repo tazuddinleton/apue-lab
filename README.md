@@ -29,6 +29,8 @@ vagrant up --provider=virtualbox
 The `generic/netbsd9` box is used because Vagrant boxes are provider-specific.
 The provisioning script verifies that the guest reports NetBSD 9.x and GCC
 7.4.x; it fails loudly rather than silently giving you a different toolchain.
+It does not create a source-tree layout inside the guest; create the
+directories you want after cloning the repository.
 
 ## Start and stop
 
@@ -36,7 +38,6 @@ The provisioning script verifies that the guest reports NetBSD 9.x and GCC
 cd ~/Learn/apue-netbsd-lab
 vagrant up --provider=libvirt
 vagrant ssh
-cd ~/apue
 vagrant suspend
 vagrant halt
 vagrant destroy

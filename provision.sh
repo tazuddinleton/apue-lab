@@ -35,13 +35,10 @@ for command in make ar nm ld sh awk sed grep; do
     fi
 done
 
-mkdir -p /home/vagrant/apue/{src,notes,bin}
-chown -R vagrant:users /home/vagrant/apue 2>/dev/null ||
-    chown -R vagrant:$(id -gn vagrant) /home/vagrant/apue
-
 cat <<'EOF'
 
 APUE NetBSD lab is ready.
 Run: vagrant ssh
-Then: cd ~/apue
+Clone the lab repository into your home directory, then create any working
+directories you need.
 EOF
