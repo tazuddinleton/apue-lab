@@ -1,0 +1,15 @@
+# Downloaded NetBSD source set archives.
+*.tgz
+*.tar.gz
+
+# Extracted NetBSD source trees and build output.
+/usr/src/
+/usr/obj/
+/src/
+/obj/
+
+# Local lab state and editor files.
+.vagrant/
+*.swp
+*.swo
+.DS_Store
