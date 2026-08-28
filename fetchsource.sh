@@ -8,7 +8,7 @@ for set in gnusrc sharesrc src syssrc; do
     echo "Fetching ${set}..."
     ftp -V -o "${set}.tgz" "${base_url}/${set}.tgz"
     echo "Extracting ${set}..."
-    su root -c "tar zxf ${set}.tgz -C /"
+    sudo -c "tar zxf ${set}.tgz -C /"
     rm -f "${set}".tgz
 
 done
