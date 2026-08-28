@@ -77,6 +77,21 @@ If the box does not include `pkgin`, provisioning stops instead of silently
 switching to a different package manager. Install or configure `pkgin` for the
 NetBSD 9 box before retrying `vagrant provision`.
 
+## Fetch the NetBSD sources
+
+After cloning the repository inside the guest, run:
+
+```sh
+./fetchsource.sh
+```
+
+The source archives are downloaded into the current directory and extracted
+under `/usr/src`. The script runs the four independent source-set jobs in
+parallel. It is safe to rerun: existing archives are reused, already-extracted
+sets are skipped, and archives are never deleted automatically. The downloaded
+`.tgz` files are ignored by Git; remove them manually when you no longer need
+them.
+
 ## Suggested exercise sequence
 
 ### Week 1: Orientation
