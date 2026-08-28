@@ -17,11 +17,11 @@ fetch_and_extract() {
     if [ -f "$archive" ]; then
         echo "${set_name}: archive already exists; skipping download"
     else
-        echo "${set_name}: fetching"
+        echo "${set_name}: fetching..."
         ftp -V -o "$archive" "${base_url}/${archive}"
     fi
 
-    echo "${set_name}: extracting"
+    echo "${set_name}: extracting..."
     tar zxf "$archive" -C .
     echo "${set_name}: complete"
 }
