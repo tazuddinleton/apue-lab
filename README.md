@@ -61,7 +61,21 @@ man 3 printf
 
 NetBSD's base system includes the compiler and core Unix tools. Do not install
 Linux packages or use `apt`; this lab is deliberately teaching the NetBSD/POSIX
-environment.
+environment. Provisioning uses NetBSD's `pkgin` package manager to install a
+small set of learning tools:
+
+```text
+git   clone the lab and keep source history
+gdb   inspect processes and debug C programs
+tmux  run parent/child and signal experiments in multiple terminals
+vim   edit source inside the guest
+less  read manuals and logs
+curl  practice basic network and HTTP observations
+```
+
+If the box does not include `pkgin`, provisioning stops instead of silently
+switching to a different package manager. Install or configure `pkgin` for the
+NetBSD 9 box before retrying `vagrant provision`.
 
 ## Suggested exercise sequence
 

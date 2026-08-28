@@ -35,6 +35,15 @@ for command in make ar nm ld sh awk sed grep; do
     fi
 done
 
+echo "== Installing APUE tools =="
+if ! command -v pkgin >/dev/null 2>&1; then
+    echo "pkgin is required to install the APUE tools" >&2
+    exit 1
+fi
+
+pkgin -y update
+pkgin -y install git gdb tmux vim less curl
+
 cat <<'EOF'
 
 APUE NetBSD lab is ready.
