@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  printf 'Usage: %s <lab-name-or-path> [project-path]\n' "${0##*/}" >&2
+  printf 'Example: %s system-design-lab raft-lab\n' "${0##*/}" >&2
+}
+
+if (($# < 1 || $# > 2)); then
+  usage
+  exit 2
+fi
+
+lab_dir=$1
+if [[ "$lab_dir" != /* ]]; then
+  lab_dir="$HOME/Learn/$lab_dir"
+fi
+lab_dir=$(realpath "$lab_dir")
+
+if [[ ! -d "$lab_dir" ]] ||
+   [[ ! -f "$lab_dir/Vagrantfile" && ! -f "$lab_dir/vagrantfile" ]]; then
+  printf 'Not a Vagrant lab: %s\n' "$lab_dir" >&2
+  exit 1
+fi
+
+command -v nvim >/dev/null || {
+  printf 'Neovim is not installed on the workstation.\n' >&2
+  exit 1
+}
+command -v sshfs >/dev/null || {
+  printf 'SSHFS is not installed. Run: sudo pacman -S sshfs\n' >&2
+  exit 1
+}
+
+cd "$lab_dir"
+vagrant up --provider=libvirt
+
+mount_root="${XDG_RUNTIME_DIR:-$HOME/.cache}/vagrant-nvim"
+mountpoint="$mount_root/$(basename "$lab_dir")"
+guest_path="${VAGRANT_NVIM_GUEST_PATH:-/home/vagrant}"
+mkdir -p "$mountpoint"
+vagrant ssh -c "mkdir -p -- '$guest_path'"
+
+mounted_here=false
+if ! mountpoint -q "$mountpoint"; then
+  ssh_config=$(mktemp)
+  trap 'rm -f "$ssh_config"; if $mounted_here; then fusermount3 -u "$mountpoint"; fi' EXIT
+  vagrant ssh-config >"$ssh_config"
+  sshfs -F "$ssh_config" "default:$guest_path" "$mountpoint" \
+    -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3
+  mounted_here=true
+fi
+
+target="$mountpoint"
+if (($# == 2)); then
+  target="$mountpoint/$2"
+fi
+
+nvim "$target"
