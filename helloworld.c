@@ -4,7 +4,9 @@ char *getlogin();
 
 int main(int argc, char *argv[]) {
 
-  printf("Hello %s", getlogin());
+  (void)argc;
+  (void)argv;
+  printf("Hello %s\n", getlogin());
 
   return 0;
 }
