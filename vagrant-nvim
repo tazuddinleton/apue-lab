@@ -56,4 +56,5 @@ if (($# == 2)); then
   target="$mountpoint/$2"
 fi
 
-nvim "$target"
+cd "$garget"
+nvim .
